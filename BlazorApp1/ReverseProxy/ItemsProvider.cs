@@ -32,8 +32,8 @@ public class ItemsProvider {
         };
     }
 
-    public void Toggle(Item item, InMemoryConfigProvider configProvider) {
-        var items = Config.Components.Replace(item, item with {IsLocal = !item.IsLocal});
+    public void Toggle(Component component, InMemoryConfigProvider configProvider) {
+        var items = Config.Components.Replace(component, component with {IsLocal = !component.IsLocal});
         var (routes, clusters) = CreateConfigs(items);
         configProvider.Update(routes, clusters);
         Config = Config with {Components = items};
@@ -44,7 +44,7 @@ public class ItemsProvider {
     }
 
     public (IReadOnlyList<RouteConfig> routes, IReadOnlyList<ClusterConfig> clusters) CreateConfigs(
-        ImmutableList<Item> items) {
+        ImmutableList<Component> items) {
         var routes = new List<RouteConfig>(items.Count);
         var clusters = new List<ClusterConfig>(items.Count);
 

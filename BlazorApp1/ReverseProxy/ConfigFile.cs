@@ -2,4 +2,4 @@
 
 namespace BlazorApp1.ReverseProxy;
 
-public record ConfigFile(ImmutableList<Item> Components);
+public record ConfigFile(ImmutableList<Component> Components);

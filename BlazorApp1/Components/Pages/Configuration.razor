@@ -44,8 +44,8 @@
 
     public string Error { get; set; } = "";
 
-    private void OnToggle(Item item) {
-        HandleError(() => ItemsProvider.Toggle(item, ConfigProvider));
+    private void OnToggle(Component component) {
+        HandleError(() => ItemsProvider.Toggle(component, ConfigProvider));
     }
 
     private void Reload() {
