@@ -1,0 +1,64 @@
+﻿@page "/"
+@using BlazorApp1.ReverseProxy
+@using Yarp.ReverseProxy.Configuration
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>Configuration</PageTitle>
+
+<h1>Configuration</h1>
+
+<button class="btn btn-primary" @onclick="Reload">Reload config.json</button>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Local target</th>
+        <th>Remote target</th>
+        <th>Current</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in ItemsProvider.Config.Components) {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.LocalTarget</td>
+            <td>@item.RemoteTarget</td>
+            <td><button class="btn btn-primary" @onclick="@(() => OnToggle(item))">@(item.IsLocal ? "local" : "remote")</button></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<pre>
+@Error
+</pre>
+
+@code {
+    [Inject]
+    public ItemsProvider ItemsProvider { get; set; }
+    
+    [Inject]
+    public InMemoryConfigProvider ConfigProvider { get; set; }
+
+    public string Error { get; set; } = "";
+
+    private void OnToggle(Item item) {
+        HandleError(() => ItemsProvider.Toggle(item, ConfigProvider));
+    }
+
+    private void Reload() {
+        HandleError(() => ItemsProvider.Reload(ConfigProvider));
+    }
+
+    private void HandleError(Action action) {
+        try {
+            action();
+            Error = "";
+        }
+        catch (Exception e) {
+            Error = e.ToString();
+        }
+    }
+}
