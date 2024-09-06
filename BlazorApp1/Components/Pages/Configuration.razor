@@ -22,9 +22,9 @@
     <tbody>
     @foreach (var item in ItemsProvider.Config.Components) {
         <tr>
-            <td>@item.Name</td>
-            <td>@item.LocalTarget</td>
-            <td>@item.RemoteTarget</td>
+        <td><a href="@item.Name/" class="component-link">@item.Name</a></td>
+            <td><a href="@item.LocalTarget" class="@(item.IsLocal ? "component-link-active" : "component-link")">@item.LocalTarget</a></td>
+            <td><a href="@item.RemoteTarget" class="@(!item.IsLocal ? "component-link-active" : "component-link")">@item.RemoteTarget</a></td>
             <td><button class="btn btn-primary" @onclick="@(() => OnToggle(item))">@(item.IsLocal ? "local" : "remote")</button></td>
         </tr>
     }
