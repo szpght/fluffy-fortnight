@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "name": "XD.Junk",
+      "localTarget": "http://192.168.0.2/junk/",
+      "remoteTarget": "http://192.168.0.2/junk/_do skopiowania/",
+      "isLocal": true
+    }
+  ]
+}
