@@ -1,4 +1,3 @@
-using BlazorApp1;
 using BlazorApp1.Components;
 using BlazorApp1.ReverseProxy;
 
@@ -7,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddHttpLogging(o => { });
 builder.Services.AddProxy();
 
 var app = builder.Build();
@@ -23,7 +23,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapReverseProxy();
+app.MapReverseProxy(x => x.UseHttpLogging());
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
